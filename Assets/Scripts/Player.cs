@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     public void Movement()
     {
         float forwardMovement = Input.GetAxis("Vertical");
-        float rotationMovement = Input.GetAxisRaw("Horizontal");
+        float rotationMovement = -Input.GetAxisRaw("Horizontal");
         transform.Rotate(0.0f, 0.0f, rotationMovement * speedRotation * Time.deltaTime);
         myRigidbody.AddForce(transform.up * speed * forwardMovement);
         PositionControl();
