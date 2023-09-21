@@ -25,3 +25,9 @@ jobs:
         # Unity -quit -batchmode -projectPath ./YourUnityProjectFolder -executeMethod BuildScript.Build
       env:
         BUILD_TARGET: StandaloneWindows64  # Reemplaza con tu plataforma de destino (ejemplo: StandaloneWindows64)
+        
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: BuildArtifacts
+        path: C:\Ruta\Completa\A\La\Carpeta\Builds  # Reemplaza con la ruta real de tus archivos de construcción
