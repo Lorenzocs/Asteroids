@@ -7,25 +7,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
     - name: Set up Unity
-      uses: game-ci/setup-unity@v2
+      uses: game-ci/setup-unity@v1
       with:
-        unityVersion: 2021.1.x  # Reemplaza con la versión de Unity que estés utilizando
+        unityVersion: 2021.3.22  # Reemplaza con la versión de Unity que estás utilizando
 
     - name: Build Unity project
       run: |
-        unity -quit -batchmode -projectPath ./YourUnityProjectFolder -executeMethod BuildScript.Build
+        # Reemplaza con los comandos de construcción específicos de tu proyecto de Unity
+        # Por ejemplo, puedes usar la CLI de Unity para construir tu proyecto:
+        # Unity -quit -batchmode -projectPath ./YourUnityProjectFolder -executeMethod BuildScript.Build
       env:
-        BUILD_TARGET: StandaloneLinux64  # Reemplaza con tu plataforma de destino
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: BuildArtifacts
-        path: ./YourUnityProjectFolder/Builds  # Reemplaza con la ruta de tus archivos de construcción
+        BUILD_TARGET: StandaloneWindows64  # Reemplaza con tu plataforma de destino (ejemplo: StandaloneWindows64)
