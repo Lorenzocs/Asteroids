@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -16,18 +16,22 @@ jobs:
     - name: Set up Unity
       uses: game-ci/setup-unity@v1
       with:
-        unityVersion: 2021.3.22  # Reemplaza con la versión de Unity que estás utilizando
+        unityVersion: 2021.3.22  # Reemplaza con la versión de Unity que estés utilizando
 
     - name: Build Unity project
       run: |
-        # Reemplaza con los comandos de construcción específicos de tu proyecto de Unity
-        # Por ejemplo, puedes usar la CLI de Unity para construir tu proyecto:
-        # Unity -quit -batchmode -projectPath ./YourUnityProjectFolder -executeMethod BuildScript.Build
+        # Aquí colocarías los comandos específicos para construir tu proyecto de Unity
+        # Ejemplo: unity -quit -batchmode -projectPath ./YourUnityProjectFolder -executeMethod BuildScript.Build
       env:
-        BUILD_TARGET: StandaloneWindows64  # Reemplaza con tu plataforma de destino (ejemplo: StandaloneWindows64)
-        
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+        BUILD_TARGET: StandaloneLinux64  # Reemplaza con tu plataforma de destino
+
+    - name: Create Release and Upload Build Artifacts
+      id: create_release
+      uses: softprops/action-gh-release@v1
       with:
-        name: BuildArtifacts
-        path: C:\Ruta\Completa\A\La\Carpeta\Builds  # Reemplaza con la ruta real de tus archivos de construcción
+        files: |
+          ./YourUnityProjectFolder/Builds/*  # Reemplaza con la ruta de tus archivos de construcción
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Get Release URL
+      run: echo "Release URL: ${{ steps.create_release.outputs.upload_url }}"
